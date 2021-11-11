@@ -12,7 +12,7 @@ console.log(map1)
 > The keyboard **shortcuts** are **mentioned** below.
 ### Image Block
 This is an Image block. Images can be added by going to a new empty line and then clicking the **(+)** button that appears on the left of the cursor.
-![Calebe Miranda](file:///Users/alagrede/Desktop/pexels-photo-793166_zzwg3t.jpeg)
+![Calebe Miranda](https://res.cloudinary.com/beetoo/image/upload/v1521520623/pexels-photo-793166_zzwg3t.jpg)
 
 ### Todo Block
 - [ ] This is an uncomplete todo block. To add a `todo` block, type `[]` in a new line.

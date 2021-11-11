@@ -2,7 +2,7 @@
 
 **Meditee Desktop app** is a minimalist '**Medium like**' Markdown editor, based on [Draft.js](https://draftjs.org/) and specifically on [medium-draft](https://bitwiser.in/medium-draft/).
 
-> The goal of this project is to provide a working desktop application using the awesome Draftjs with electron to edit Markdown files.
+> The goal of this project is to provide a working desktop application using the awesome Draftjs through Electron to edit Markdown files.
 
 <div align="center">
 <img src=".erb/img/erb-logo.png" width="256px" />
