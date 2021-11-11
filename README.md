@@ -11,6 +11,9 @@
 
 ## Download
 
+![Stable version](https://img.shields.io/badge/version-1.0.0-blue)
+
+
 <table width="100%">
 <tr>
   <td>Mac</td>
