@@ -15,20 +15,20 @@
 <tr>
   <td>Mac</td>
   <td>
-    <a href="https://github.com/alagrede/meditee/releases/download/latest/Meditee-1.0.0.dmg">[x64]</a>
-    <a href="https://github.com/alagrede/meditee/releases/download/latest/Meditee-1.0.0-arm64.dmg">[arm64]</a>
+    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-1.0.0.dmg">[x64]</a>
+    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-1.0.0-arm64.dmg">[arm64]</a>
   </td>
 </tr>
 <tr>
   <td>Windows</td>
   <td>
-    <a href="https://github.com/alagrede/meditee/releases/download/latest/Meditee-Setup-1.0.0.exe">x64</a>
+    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-Setup-1.0.0.exe">x64</a>
   </td>
 </tr>
 <tr>
   <td>Linux</td>
   <td>
-    <a href="https://github.com/alagrede/meditee/releases/download/latest/Meditee-1.0.0.AppImage">x64</a>
+    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-1.0.0.AppImage">x64</a>
   </td>
 </tr>
 </table>
