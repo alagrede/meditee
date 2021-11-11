@@ -118,27 +118,25 @@ const MainView = () => {
   const [dirty, setDirty] = React.useState(false);
   const [filename, setFilename] = React.useState(null);
   const [editorState, setEditorState] = React.useState(createEditorState("", decorator));
-  const [originalValue, setOriginalValue] = React.useState("");
-
+  const originalRef = React.useRef("");
   const editor = React.useRef(null);
-
 
 
   /* Debounce dirty */
   const debounceDirty = React.useCallback(
     debounce((currentState, originalValue, filename) => {
-      const blocks = convertToRaw(currentState.getCurrentContent()).blocks;
-      let currentValue = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
-      currentValue = currentValue.substring(0, currentValue.length - 1); // remove the last '\n'
-      const isDirty = currentValue !== originalValue;
-      setDirty(isDirty);
-      window.document.title = getSimpleName(filename) + (isDirty?"*":"");
-    }, 1000),
-    []
+      const rawData = convertToRaw(currentState.getCurrentContent());
+      const currentMd = draftjsToMd(rawData);
+        const isDirty = currentMd !== originalRef.current;
+        setDirty(isDirty);
+        window.document.title = getSimpleName(filename) + (isDirty?"*":"");
+      }, 1000),
+      []
   );
 
+
   const onChange = (currentEditorState) => {
-    debounceDirty(currentEditorState, originalValue, filename);
+    debounceDirty(currentEditorState, originalRef, filename);
     setEditorState(currentEditorState);
   };
 
@@ -235,16 +233,20 @@ const MainView = () => {
     window.electron.ipcRenderer.on('openFile', ({ filename, value }) => {
       setFilename(filename);
       window.document.title = getSimpleName(filename);
-      setDirty(false);
 
       // read MD
       const rawData = mdToDraftjs(value);
+
+      // new reference value
+      // Use again the draft>MD converter to ensure to have the same MD serialization
+      // (cover cases of unsupported MD content)
+      const currentMd = draftjsToMd(rawData);
+      originalRef.current = currentMd;
+      setDirty(false);
+
+
       //console.log(JSON.stringify(rawData));
       const state = createEditorState(rawData, decorator);
-
-      // save the original value after conversion
-      const blocks = convertToRaw(state.getCurrentContent()).blocks;
-      setOriginalValue(blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n'));
 
       setEditorState(state);
 
@@ -258,9 +260,9 @@ const MainView = () => {
     });
     window.electron.ipcRenderer.removeAllListeners("saveFile");
     window.electron.ipcRenderer.on('saveFile', (filename) => {
+      // update filename if use change filename
       setFilename(filename);
       window.document.title = getSimpleName(filename);
-      setDirty(false);
     });
 
   }, [dirty, editorState]);
@@ -283,6 +285,12 @@ const MainView = () => {
       // save MD
       const rawData = convertToRaw(editorState.getCurrentContent());
       const md = draftjsToMd(rawData);
+
+      // new reference value
+      originalRef.current = md;
+      setDirty(false);
+
+      // write file
       window.electron.ipcRenderer.saveFile(filename, md);
       return HANDLED;
     }
