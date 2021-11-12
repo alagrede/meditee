@@ -32,6 +32,9 @@ export default class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
+ipcMain.on('openWebsite', async (_event) => {
+  shell.openExternal("https://github.com/alagrede/meditee").catch(err => console.log(err));
+});
 ipcMain.on('openFile', async (event) => {
   const result = openDialog();
   if (result) {
@@ -188,6 +191,10 @@ if (!gotTheLock) {
   //app.on("ready", createWindow);
 }
 
+// auto update events
+autoUpdater.on('update-available', () => {
+  mainWindow?.webContents.send('update_available');
+});
 
 app
   .whenReady()

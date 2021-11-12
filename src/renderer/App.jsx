@@ -6,13 +6,6 @@ import { myKeyBindingFn } from './util/myKeyBinding';
 import {setRenderOptions, blockToHTML, entityToHTML, styleToHTML} from 'medium-draft/lib/exporter';
 import { HANDLED, NOT_HANDLED } from "medium-draft/lib/util/constants";
 import PrismDecorator from 'draft-js-prism';
-import Prism from 'prismjs';
-
-import 'font-awesome/css/font-awesome.min.css';
-import 'medium-draft/lib/index.css';
-import 'prismjs/themes/prism.css'
-import './App.css';
-
 import mdToDraftjs from "./draftjs-md-converter/mdToDraftjs";
 import draftjsToMd from "./draftjs-md-converter/draftjsToMd";
 import { CustomImageSideButton } from "./buttons/CustomImageSideButton";
@@ -21,6 +14,13 @@ import CodeSideButton from "./buttons/CodeSideButton";
 import { BLOCK_BUTTONS, INLINE_BUTTONS } from "./buttons/constants";
 import { debounce } from "./util/debounce";
 import MultiDecorator from "./decorator/MultiDecorator";
+import Prism from 'prismjs';
+import SnackBarUpdate from './components/SnackBarUpdate';
+
+import 'font-awesome/css/font-awesome.min.css';
+import 'medium-draft/lib/index.css';
+import 'prismjs/themes/prism.css'
+import './App.css';
 
 
 const decorator = new MultiDecorator([
@@ -322,6 +322,8 @@ const MainView = () => {
 
 
   return (
+    <>
+    <SnackBarUpdate/>
     <div className={"container"}>
         <Editor
           ref={editor}
@@ -336,6 +338,7 @@ const MainView = () => {
           spellcheck={true}
         />
     </div>
+    </>
   );
 };
 
