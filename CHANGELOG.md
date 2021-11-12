@@ -1,3 +1,6 @@
+# 1.0.3
+- Add a Dark mode theme
+
 # 1.0.2
 - Adding a snackbar when an update is available
 

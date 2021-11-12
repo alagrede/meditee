@@ -1,3 +1,66 @@
+
+@media (prefers-color-scheme: light) {
+  /* Link */
+  .md-link {
+    color: #08c;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Main BG */
+  html, .md-RichEditor-root {
+    background-color: #343434;
+    color: #dedede;
+  }
+  /* Side toolbar */
+  .md-sb-button.md-sb-img-button {
+    background-color: black;
+  }
+  /* Side cross */
+  .md-sb-button svg path {
+    fill: #ffffff;
+  }
+  /* Side buttons */
+  .md-sb-button {
+    border: 1px solid #d7d7d7;
+    color: #ffffff;
+  }
+  /* Blockquote */
+  .md-RichEditor-editor .md-RichEditor-blockquote {
+    color: #ffffff;
+    background-color: #797979;
+  }
+
+  /* Link */
+  .md-link {
+    color: #4dc2ff;
+  }
+
+  /*
+  a, a:visited {
+    color: #08c;
+  }
+  .md-link {
+    color: #08c;
+  }
+   */
+
+  /*Code block*/
+  .md-RichEditor-editor .public-DraftStyleDefault-pre {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  /* Token code bloc */
+  .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
+    background: none;
+  }
+}
+
+
+.md-RichEditor-editor .md-RichEditor-blockquote {
+  font-size: 1.2em;
+}
+
+
 .md-RichEditor-root {
   font-family: 'Georgia', serif;
 }
@@ -9,12 +72,6 @@
   font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
 }
 
-a, a:visited {
-  color: #08c;
-}
-.md-link {
-  color: #08c;
-}
 .container {
   padding-Left: 100px;
   padding-right: 100px;

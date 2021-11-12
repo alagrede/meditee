@@ -3,8 +3,9 @@ import {
   Menu,
   shell,
   BrowserWindow,
-  MenuItemConstructorOptions,
-} from 'electron';
+  MenuItemConstructorOptions, nativeTheme
+} from "electron";
+import NativeTheme = Electron.NativeTheme;
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
@@ -13,9 +14,11 @@ interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
+  nativeTheme: NativeTheme;
 
-  constructor(mainWindow: BrowserWindow) {
+  constructor(mainWindow: BrowserWindow, nativeTheme: NativeTheme) {
     this.mainWindow = mainWindow;
+    this.nativeTheme = nativeTheme;
   }
 
   buildMenu(): Menu {
@@ -145,6 +148,17 @@ export default class MenuBuilder {
           },
         },
         {
+          label: 'Dark mode',
+          accelerator: 'Shift+Command+D',
+          click: () => {
+            if (nativeTheme.shouldUseDarkColors) {
+              nativeTheme.themeSource = 'light'
+            } else {
+              nativeTheme.themeSource = 'dark'
+            }
+          },
+        },
+        {
           label: 'Toggle Developer Tools',
           accelerator: 'Alt+Command+I',
           click: () => {
@@ -161,6 +175,17 @@ export default class MenuBuilder {
           accelerator: 'Ctrl+Command+F',
           click: () => {
             this.mainWindow.setFullScreen(!this.mainWindow.isFullScreen());
+          },
+        },
+        {
+          label: 'Dark mode',
+          accelerator: 'Shift+Command+D',
+          click: () => {
+            if (nativeTheme.shouldUseDarkColors) {
+              nativeTheme.themeSource = 'light'
+            } else {
+              nativeTheme.themeSource = 'dark'
+            }
           },
         },
       ],
