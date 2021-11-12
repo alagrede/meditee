@@ -277,6 +277,13 @@ export default class MenuBuilder {
               this.mainWindow.webContents.send('command', 'export');
             },
           },
+          {
+            label: 'Quit',
+            accelerator: 'Ctrl+Q',
+            click: () => {
+              app.quit();
+            },
+          }
         ],
       },
       {
@@ -302,6 +309,17 @@ export default class MenuBuilder {
                   },
                 },
                 {
+                  label: 'Dark mode',
+                  accelerator: 'Shift+Ctrl+D',
+                  click: () => {
+                    if (nativeTheme.shouldUseDarkColors) {
+                      nativeTheme.themeSource = 'light'
+                    } else {
+                      nativeTheme.themeSource = 'dark'
+                    }
+                  }
+                },
+                {
                   label: 'Toggle &Developer Tools',
                   accelerator: 'Alt+Ctrl+I',
                   click: () => {
@@ -319,6 +337,17 @@ export default class MenuBuilder {
                     );
                   },
                 },
+              {
+                label: 'Dark mode',
+                accelerator: 'Shift+Ctrl+D',
+                click: () => {
+                  if (nativeTheme.shouldUseDarkColors) {
+                    nativeTheme.themeSource = 'light'
+                  } else {
+                    nativeTheme.themeSource = 'dark'
+                  }
+                }
+              }
               ],
       },
       {

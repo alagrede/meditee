@@ -1,3 +1,6 @@
+# 1.0.4
+- Fix missing menu option on Windows
+
 # 1.0.3
 - Add a Dark mode theme
 
