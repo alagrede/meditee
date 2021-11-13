@@ -1,3 +1,6 @@
+# 1.0.5
+- Fix Dark mode keyboard shortcut not accessible on Windows
+
 # 1.0.4
 - Fix missing menu option on Windows
 

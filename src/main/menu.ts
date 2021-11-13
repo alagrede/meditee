@@ -310,7 +310,7 @@ export default class MenuBuilder {
                 },
                 {
                   label: 'Dark mode',
-                  accelerator: 'Shift+Ctrl+D',
+                  accelerator: 'Ctrl+D',
                   click: () => {
                     if (nativeTheme.shouldUseDarkColors) {
                       nativeTheme.themeSource = 'light'
@@ -339,7 +339,7 @@ export default class MenuBuilder {
                 },
               {
                 label: 'Dark mode',
-                accelerator: 'Shift+Ctrl+D',
+                accelerator: 'Ctrl+D',
                 click: () => {
                   if (nativeTheme.shouldUseDarkColors) {
                     nativeTheme.themeSource = 'light'
