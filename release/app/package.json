@@ -1,7 +1,7 @@
 {
   "name": "Meditee",
   "productName": "Meditee",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Minimalist Markdown editor",
   "main": "./dist/main/main.js",
   "author": {

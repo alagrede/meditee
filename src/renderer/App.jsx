@@ -1,7 +1,11 @@
 import React from 'react';
 import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
 import { Editor, createEditorState, Block, rendererFn, findLinkEntities, Link } from "medium-draft";
-import { convertToRaw, convertFromRaw, ContentState, EditorState, CompositeDecorator, RichUtils, Modifier, SelectionState } from 'draft-js';
+import {
+  convertToRaw,
+  convertFromRaw,
+  CompositeDecorator,
+} from "draft-js";
 import { myKeyBindingFn } from './util/myKeyBinding';
 import {setRenderOptions, blockToHTML, entityToHTML, styleToHTML} from 'medium-draft/lib/exporter';
 import { HANDLED, NOT_HANDLED } from "medium-draft/lib/util/constants";
@@ -278,6 +282,16 @@ const MainView = () => {
 
 
   const handleKeyCommand = (command) => {
+
+    // quit code block
+    if (command === 'quit-code-block') {
+      return HANDLED;
+    }
+
+    // add new line in code block
+    if (command === 'add-newline') {
+      return HANDLED;
+    }
     if (command === 'myeditor-save') {
       // save raw
       //const value = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
@@ -331,7 +345,7 @@ const MainView = () => {
           inlineButtons={INLINE_BUTTONS}
           editorState={editorState}
           onChange={onChange}
-          keyBindingFn={myKeyBindingFn}
+          keyBindingFn={(e) => myKeyBindingFn(e, editorState, setEditorState)}
           handleKeyCommand={handleKeyCommand}
           sideButtons={sideButtons}
           rendererFn={customRendererFn}

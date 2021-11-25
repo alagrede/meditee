@@ -1,12 +1,50 @@
-import { getDefaultKeyBinding, KeyBindingUtil } from 'draft-js';
+import { getDefaultKeyBinding, KeyBindingUtil, Modifier, EditorState } from 'draft-js';
 import { KEY_COMMANDS } from 'medium-draft/lib/util/constants';
 const { changeType, showLinkInput, unlink } = KEY_COMMANDS;
+
+
+function getCurrentBlock(editorState) {
+  const selection = editorState.getSelection();
+  const contentState = editorState.getCurrentContent();
+  const startKey = selection.getStartKey();
+  const currentBlock = contentState.getBlockForKey(startKey);
+  return currentBlock;
+}
+
 
 /*
 Emits various key commands to be used by `handleKeyCommand` in `Editor` based
 on various key combos.
 */
-export const myKeyBindingFn = (e) => {
+export const  myKeyBindingFn = (e, editorState, setEditorState) => {
+
+  // https://github.com/facebook/draft-js/issues/452
+  // Fix ENTER add-new-line in code block and CMD+ENTER to quit block
+  const block = getCurrentBlock(editorState);
+
+  if (e.keyCode === 13 && block.getType() === 'code-block') {
+    if (KeyBindingUtil.hasCommandModifier(e)) {
+      // Command+Enter in code-block
+      // => quit code block
+
+      // 1. split block
+      let newContentState = Modifier.splitBlock(editorState.getCurrentContent(), editorState.getSelection());
+      let newEditorState = EditorState.push(editorState, newContentState, 'split-block');
+      // 2. remove style on last block
+      newContentState = Modifier.setBlockType(newContentState, newEditorState.getSelection(), 'unstyled');
+      newEditorState = EditorState.push(newEditorState, newContentState, 'unstyled');
+
+      setEditorState(newEditorState);
+      return 'quit-code-block';
+    } else {
+      // Enter in code-block
+      // add new line in current code-block
+      const newContentState = Modifier.insertText(editorState.getCurrentContent(), editorState.getSelection(), '\n');
+      const newEditorState = EditorState.push(editorState, newContentState, "insert-characters");
+      setEditorState(newEditorState);
+      return 'add-newline';
+    }
+  }
 
   // add save binding
   if (e.keyCode === 83 /* `S` key */ && KeyBindingUtil.hasCommandModifier(e)) {

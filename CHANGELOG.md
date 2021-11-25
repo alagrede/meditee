@@ -1,3 +1,6 @@
+# 1.0.6
+- Fix Enter in code-block and CMD+Enter to quit
+
 # 1.0.5
 - Fix Dark mode keyboard shortcut not accessible on Windows
 
