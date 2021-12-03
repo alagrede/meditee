@@ -4,7 +4,7 @@ import { Editor, createEditorState, Block, rendererFn, findLinkEntities, Link } 
 import {
   convertToRaw,
   convertFromRaw,
-  CompositeDecorator,
+  CompositeDecorator
 } from "draft-js";
 import { myKeyBindingFn } from './util/myKeyBinding';
 import {setRenderOptions, blockToHTML, entityToHTML, styleToHTML} from 'medium-draft/lib/exporter';
@@ -25,6 +25,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'medium-draft/lib/index.css';
 import 'prismjs/themes/prism.css'
 import './App.css';
+import { moveFocusToStart } from "./util/selection";
 
 
 const decorator = new MultiDecorator([
@@ -179,11 +180,18 @@ const MainView = () => {
 
     window.electron.ipcRenderer.removeAllListeners("confirm");
     window.electron.ipcRenderer.on('confirm', (arg) => {
-      if (arg === 0) { // confirm YES
-        if (window.location.hash === "#quit") {
+      if (arg.result === 0) { // confirm YES
+        if (arg.command === 'quit') {
           window.electron.ipcRenderer.quit();
-        } else {
-          window.location.reload();
+
+        } else if (arg.command === 'open') {
+          window.electron.ipcRenderer.openFile();
+
+        } else if (arg.command === 'new') {
+          setFilename(null);
+          const state = createEditorState("", decorator);
+          setEditorState(moveFocusToStart(state));
+
         }
       }
     });
@@ -191,41 +199,29 @@ const MainView = () => {
     window.electron.ipcRenderer.removeAllListeners("command");
     window.electron.ipcRenderer.on('command', (arg) => {
       if (arg === 'open') {
-        // https://github.com/facebook/draft-js/issues/1630
-        // Because a DraftJS bug there is no way to correctly reset the Editor.
-        // => Force reload page
-        window.location.hash = 'open';
         if (dirty) {
-          window.electron.ipcRenderer.confirm();
+          window.electron.ipcRenderer.confirm('open');
         } else {
-          window.location.reload();
+          window.electron.ipcRenderer.openFile();
         }
       }
       if (arg === 'new') {
-        window.location.hash = '';
         if (dirty) {
-          window.electron.ipcRenderer.confirm();
+          window.electron.ipcRenderer.confirm('new');
         } else {
-          window.location.reload();
+          setFilename(null);
+          const state = createEditorState("", decorator);
+          setEditorState(moveFocusToStart(state));
         }
-        /*
-        setFilename(null);
-        window.document.title = getSimpleName(filename);
-        //setEditorState(createEditorState("", decorator));
-        // scroll to TOP
-        window.scrollTo(0,0);
-         */
       }
 
       if (arg === 'export') {
-        window.location.hash = '';
         renderHTML();
       }
 
       if (arg === 'quit') {
         if (dirty) {
-          window.location.hash = 'quit';
-          window.electron.ipcRenderer.confirm();
+          window.electron.ipcRenderer.confirm('quit');
         } else {
           window.electron.ipcRenderer.quit();
         }
@@ -248,14 +244,9 @@ const MainView = () => {
       originalRef.current = currentMd;
       setDirty(false);
 
-
       //console.log(JSON.stringify(rawData));
       const state = createEditorState(rawData, decorator);
-
-      setEditorState(state);
-
-      // scroll to TOP
-      //window.scrollTo(0,0);
+      setEditorState(moveFocusToStart(state));
 
       // read RAW
       //const contentState = JSON.parse(value);
@@ -271,6 +262,8 @@ const MainView = () => {
 
   }, [dirty, editorState]);
 
+
+  /*
   // Effect loaded only one time
   React.useEffect(() => {
     // open dialog after reload
@@ -278,7 +271,7 @@ const MainView = () => {
       window.electron.ipcRenderer.openFile();
     }
   },[]);
-
+   */
 
 
   const handleKeyCommand = (command) => {

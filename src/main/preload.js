@@ -11,8 +11,8 @@ contextBridge.exposeInMainWorld('electron', {
     printHTML(content) {
       ipcRenderer.send('printHTML', content);
     },
-    confirm() {
-      ipcRenderer.send('confirm');
+    confirm(command) {
+      ipcRenderer.send('confirm', command);
     },
     openFile() {
       ipcRenderer.send('openFile');

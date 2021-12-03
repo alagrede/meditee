@@ -47,9 +47,9 @@ ipcMain.on('saveFile', async (event, args) => {
     event.reply('saveFile', filename);
   }
 });
-ipcMain.on('confirm', async (event) => {
+ipcMain.on('confirm', async (event, command) => {
   const result = confirm();
-  event.reply('confirm', result);
+  event.reply('confirm', {result: result, command: command});
 });
 
 ipcMain.on("printHTML", async (event, content) => {
