@@ -132,7 +132,7 @@ const MainView = () => {
     debounce((currentState, originalValue, filename) => {
       const rawData = convertToRaw(currentState.getCurrentContent());
       const currentMd = draftjsToMd(rawData);
-        const isDirty = currentMd !== originalRef.current;
+        const isDirty = currentMd !== originalValue;
         setDirty(isDirty);
         window.document.title = getSimpleName(filename) + (isDirty?"*":"");
       }, 1000),
@@ -141,7 +141,7 @@ const MainView = () => {
 
 
   const onChange = (currentEditorState) => {
-    debounceDirty(currentEditorState, originalRef, filename);
+    debounceDirty(currentEditorState, originalRef.current, filename);
     setEditorState(currentEditorState);
   };
 
@@ -189,9 +189,10 @@ const MainView = () => {
 
         } else if (arg.command === 'new') {
           setFilename(null);
+          originalRef.current = "";
           const state = createEditorState("", decorator);
           setEditorState(moveFocusToStart(state));
-
+          setDirty(false);
         }
       }
     });
@@ -210,8 +211,10 @@ const MainView = () => {
           window.electron.ipcRenderer.confirm('new');
         } else {
           setFilename(null);
+          originalRef.current = "";
           const state = createEditorState("", decorator);
           setEditorState(moveFocusToStart(state));
+          setDirty(false);
         }
       }
 
