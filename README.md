@@ -11,27 +11,27 @@
 
 ## Download
 
-![Stable version](https://img.shields.io/badge/version-1.0.6-blue)
+![Stable version](https://img.shields.io/badge/version-1.0.7-blue)
 
 
 <table width="100%">
 <tr>
   <td>Mac</td>
   <td>
-    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-1.0.6.dmg">[x64]</a>
-    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-1.0.6-arm64.dmg">[arm64]</a>
+    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-1.0.7.dmg">[x64]</a>
+    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-1.0.7-arm64.dmg">[arm64]</a>
   </td>
 </tr>
 <tr>
   <td>Windows</td>
   <td>
-    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-Setup-1.0.6.exe">x64</a>
+    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-Setup-1.0.7.exe">x64</a>
   </td>
 </tr>
 <tr>
   <td>Linux</td>
   <td>
-    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-1.0.6.AppImage">x64</a>
+    <a href="https://github.com/alagrede/meditee/releases/latest/download/Meditee-1.0.7.AppImage">x64</a>
   </td>
 </tr>
 </table>

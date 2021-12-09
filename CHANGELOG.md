@@ -1,3 +1,6 @@
+# 1.0.7
+- Fix crash due to expiring certificate
+
 # 1.0.6
 - Fix Enter in code-block and CMD+Enter to quit
 
